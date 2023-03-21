@@ -6257,6 +6257,11 @@
     "jscodeshift" "^0.13.1"
     "nullthrows" "^1.1.1"
 
+"react-native-device-info@^10.4.0":
+  "integrity" "sha512-Z37e0HtpBvfkPRgv4xN7lXpvmJyzjwCXSFTXEkw6m2UgnnIsWlOD02Avu4hJXBlIMMazaW3ZLKal3o9h3AYvCw=="
+  "resolved" "https://registry.npmjs.org/react-native-device-info/-/react-native-device-info-10.4.0.tgz"
+  "version" "10.4.0"
+
 "react-native-gradle-plugin@^0.70.3":
   "integrity" "sha512-oOanj84fJEXUg9FoEAQomA8ISG+DVIrTZ3qF7m69VQUJyOGYyDZmPqKcjvRku4KXlEH6hWO9i4ACLzNBh8gC0A=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.70.3.tgz"
@@ -6268,6 +6273,11 @@
   "version" "1.4.0"
   dependencies:
     "@types/geojson" "^7946.0.8"
+
+"react-native-public-ip@^1.0.2":
+  "integrity" "sha512-GElvYvHLo/BCRFlXARBTq9Dwx526d1zxnyqlSfp1RQwA1yAucFbabfm6nAA3c2Nnq2OdfL4dbFGSeArM2Hdr2g=="
+  "resolved" "https://registry.npmjs.org/react-native-public-ip/-/react-native-public-ip-1.0.2.tgz"
+  "version" "1.0.2"
 
 "react-native-safe-area-context@^4.5.0", "react-native-safe-area-context@>= 3.0.0":
   "integrity" "sha512-0WORnk9SkREGUg2V7jHZbuN5x4vcxj/1B0QOcXJjdYWrzZHgLcUzYWWIUecUPJh747Mwjt/42RZDOaFn3L8kPQ=="
@@ -6282,7 +6292,7 @@
     "react-freeze" "^1.0.0"
     "warn-once" "^0.1.0"
 
-"react-native@*", "react-native@>= 0.64.3", "react-native@0.70.7":
+"react-native@*", "react-native@>= 0.64.3", "react-native@>=0.18.0", "react-native@0.70.7":
   "integrity" "sha512-MvnJJXiEPuOBbf1VPY5WXIUR/n6QB/DAk5XtBz3bzinpy9YBXiiQkhGIrTpVdVt37JeHOzafhfxAMf+Rs8jpvA=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.7.tgz"
   "version" "0.70.7"
