@@ -21,7 +21,9 @@ function LocationScreen() {
   const [username, setusername] = useState('akash');
   const [ip, setIp] = useState('');
   const [granted, setGranted] = useState(false);
-  const [Dname, setDname] = useState('');
+  const [Dname, setDname] = useState("");
+  const array = [...array, Dname];
+  console.log(array)
   const trackLocation = () => {
     Geolocation.getCurrentPosition(data => setLongitude(data.coords.longitude));
     Geolocation.getCurrentPosition(data => setLatitude(data.coords.latitude));
@@ -37,7 +39,7 @@ function LocationScreen() {
   console.log(appName);
   DeviceInfo.getDeviceName().then(deviceName => {
     //console.log(deviceName);
-     setDname(deviceName);
+    setDname(deviceName);
   });
   DeviceInfo.getUniqueId().then(uniqueId => {
     console.log(uniqueId);
@@ -45,12 +47,12 @@ function LocationScreen() {
   });
 
   function sendEvent() {
-    set(ref(db, 'users/' + Dname), {
+    set(ref(db, 'users/' + array), {
       username: username,
       latitude: latitude,
       longitude: longitude,
       ip: ip,
-      Dname:Dname
+      Dname: Dname,
     });
   }
   useEffect(() => {
