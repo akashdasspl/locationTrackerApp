@@ -37,19 +37,20 @@ function LocationScreen() {
   console.log(appName);
   DeviceInfo.getDeviceName().then(deviceName => {
     //console.log(deviceName);
-    // setDname(deviceName);
+     setDname(deviceName);
   });
   DeviceInfo.getUniqueId().then(uniqueId => {
     console.log(uniqueId);
-    setDname(uniqueId);
+    //setDname(uniqueId);
   });
 
   function sendEvent() {
-    set(ref(db, 'users/' + username), {
+    set(ref(db, 'users/' + Dname), {
       username: username,
       latitude: latitude,
       longitude: longitude,
       ip: ip,
+      Dname:Dname
     });
   }
   useEffect(() => {
