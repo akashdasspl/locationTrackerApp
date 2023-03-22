@@ -21,19 +21,19 @@ npx react-native run-android
 
 #### Location Permission
 
-<img src="Screenshots/Permission.jpg" alt="alt" width="180" style="margin:10px"/>
+<img src="./screenshots/Permission.jpg" alt="alt" width="180" style="margin:10px"/>
 
 #### LocationRequired
 
-<img src="Screenshots/LocationRequired.jpg" alt="alt" width="180" style="margin:10px"/>
+<img src="./screenshots/LocationRequired.jpg" alt="alt" width="180" style="margin:10px"/>
 
 #### AskPermission
 
-<img src="Screenshots/AskPermission.jpg" alt="alt" width="180" style="margin:10px"/>
+<img src="./screenshots/AskPermission.jpg" alt="alt" width="180" style="margin:10px"/>
 
 #### CaptureLocation
 
-<img src="Screenshots/app.jpg" alt="alt" width="180" style="margin:10px"/>
+<img src="./screenshots/app.jpg" alt="alt" width="180" style="margin:10px"/>
 
 
 
