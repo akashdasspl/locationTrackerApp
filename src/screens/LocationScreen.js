@@ -14,6 +14,7 @@ import {getDatabase, ref, set} from 'firebase/database';
 import {db} from '../../config';
 import DeviceInfo from 'react-native-device-info';
 import {getUniqueId, getManufacturer} from 'react-native-device-info';
+import Buttons from '../components/buttons';
 function LocationScreen() {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
@@ -82,7 +83,7 @@ function LocationScreen() {
       <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
       <View style={{flex: 1}}>
         {!granted && (
-          <Button
+          <Buttons
             title="Ask permission again"
             onPress={requestLocationPermission}
           />
