@@ -7,6 +7,7 @@ import {
   PermissionsAndroid,
   Alert,
   Button,
+  Platform,
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
@@ -15,15 +16,17 @@ import {db} from '../../config';
 import DeviceInfo from 'react-native-device-info';
 import {getUniqueId, getManufacturer} from 'react-native-device-info';
 import Buttons from '../components/buttons';
+import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 function LocationScreen() {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
   const [username, setusername] = useState('akash');
   const [ip, setIp] = useState('');
   const [granted, setGranted] = useState(false);
-  const [Dname, setDname] = useState("");
+  const [Dname, setDname] = useState('');
+
   const array = [...array, Dname];
-  console.log(array)
+  console.log(array);
   const trackLocation = () => {
     Geolocation.getCurrentPosition(data => setLongitude(data.coords.longitude));
     Geolocation.getCurrentPosition(data => setLatitude(data.coords.latitude));
@@ -55,6 +58,7 @@ function LocationScreen() {
       Dname: Dname,
     });
   }
+
   useEffect(() => {
     requestLocationPermission();
   }, []);
@@ -66,9 +70,10 @@ function LocationScreen() {
   const requestLocationPermission = async () => {
     try {
       if (
-        (await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        )) === PermissionsAndroid.RESULTS.GRANTED
+        (await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)) ===
+          RESULTS.GRANTED ||
+        (await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)) ===
+          RESULTS.GRANTED
       ) {
         console.log('Granted');
         setGranted(true);
