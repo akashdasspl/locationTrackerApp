@@ -11,51 +11,84 @@ import {
 } from 'react-native';
 import Geolocation from '@react-native-community/geolocation';
 import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
-import {getDatabase, ref, set} from 'firebase/database';
+import {getDatabase, ref, set, update} from 'firebase/database';
 import {db} from '../../config';
 import DeviceInfo from 'react-native-device-info';
 import {getUniqueId, getManufacturer} from 'react-native-device-info';
 import Buttons from '../components/buttons';
 import {request, PERMISSIONS, RESULTS} from 'react-native-permissions';
+import HomePage from '../components/Homepage';
 function LocationScreen() {
   const [latitude, setLatitude] = useState('');
   const [longitude, setLongitude] = useState('');
-  const [username, setusername] = useState('akash');
+  const [username, setusername] = useState([]);
   const [ip, setIp] = useState('');
   const [granted, setGranted] = useState(false);
-  const [Dname, setDname] = useState('');
+  const [Dname, setDname] = useState([]);
+  const [Uid, setUid] = useState([]);
+  const [previousDATA, setpreviousDATA] = useState([]);
+  const [asdtime, setasdtime] = useState([]);
 
-  const array = [...array, Dname];
-  console.log(array);
+  const [plon, setPlon] = useState('');
+  const [plat, setPlat] = useState('');
+  const [time, settime] = useState('');
+  const [Currenttime, setCurrenttime] = useState('');
+
+  const array = [...array, Uid];
+
   const trackLocation = () => {
-    Geolocation.getCurrentPosition(data => setLongitude(data.coords.longitude));
-    Geolocation.getCurrentPosition(data => setLatitude(data.coords.latitude));
-    // Alert.alert(`latitude :${latitude}  \n longitude : ${longitude}`);
+    Geolocation.watchPosition(data => setLongitude(data.coords.longitude));
+    Geolocation.watchPosition(data => setLatitude(data.coords.latitude));
   };
+  const trackLocationP = () => {
+    if (plat == latitude || plon == longitude) {
+      console.log('same');
+    } else {
+      setCurrenttime(new Date().toLocaleString());
+      settime(new Date().getTime());
+
+      console.log('asd', previousDATA);
+      Geolocation.getCurrentPosition(data => setPlon(data.coords.longitude));
+      Geolocation.getCurrentPosition(data => setPlat(data.coords.latitude));
+      setpreviousDATA(e => [
+        ...e,
+        {latitude: plat, longitude: plon, time: time},
+      ]);
+    }
+  };
+
   useEffect(() => {
     sendEvent();
+    setTimeout(() => {
+      trackLocationP();
+    }, 1000);
   });
   DeviceInfo.getIpAddress().then(ip => {
     setIp(ip);
   });
   const appName = DeviceInfo.getApplicationName();
+  const BrandName = DeviceInfo.getBrand();
   console.log(appName);
   DeviceInfo.getDeviceName().then(deviceName => {
-    //console.log(deviceName);
     setDname(deviceName);
   });
   DeviceInfo.getUniqueId().then(uniqueId => {
-    console.log(uniqueId);
-    //setDname(uniqueId);
+    setUid(uniqueId);
   });
 
   function sendEvent() {
+    console.log('time2', time);
+
     set(ref(db, 'users/' + array), {
-      username: username,
       latitude: latitude,
       longitude: longitude,
       ip: ip,
       Dname: Dname,
+
+      time: time,
+      Currenttime: Currenttime,
+
+      previousDATA: previousDATA,
     });
   }
 
@@ -73,7 +106,8 @@ function LocationScreen() {
         (await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE)) ===
           RESULTS.GRANTED ||
         (await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION)) ===
-          RESULTS.GRANTED
+          RESULTS.GRANTED ||
+        (await request(PERMISSIONS.IOS.LOCATION_ALWAYS)) === RESULTS.GRANTED
       ) {
         console.log('Granted');
         setGranted(true);
@@ -88,7 +122,7 @@ function LocationScreen() {
 
   return (
     <>
-      <StatusBar backgroundColor={'#fff'} barStyle={'dark-content'} />
+      <StatusBar backgroundColor={'#000'} barStyle={'light-content'} />
       <View style={{flex: 1}}>
         {!granted && (
           <Buttons
@@ -97,18 +131,18 @@ function LocationScreen() {
           />
         )}
         {granted && (
-          <View style={styles.container}>
-            <Text style={styles.text}>{appName}</Text>
-          </View>
+          <HomePage
+            appName={appName}
+            Dname={Dname}
+            Uid={Uid}
+            BrandName={BrandName}
+            ip={ip}
+            latitude={latitude}
+            longitude={longitude}
+          />
         )}
       </View>
     </>
   );
 }
 export default LocationScreen;
-const styles = StyleSheet.create({
-  container: {alignItems: 'center', justifyContent: 'center', flex: 1},
-  text: {
-    alignSelf: 'center',
-  },
-});
