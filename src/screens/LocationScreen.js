@@ -26,7 +26,13 @@ function LocationScreen() {
   const [granted, setGranted] = useState(false);
   const [Dname, setDname] = useState([]);
   const [Uid, setUid] = useState([]);
-  const [previousDATA, setpreviousDATA] = useState([]);
+  const [previousDATA, setpreviousDATA] = useState([
+    // {
+    //   latitude: 'Not Available',
+    //   longitude: 'Not Available',
+    //   time: 'Not Available',
+    // },
+  ]);
   const [asdtime, setasdtime] = useState([]);
 
   const [plon, setPlon] = useState('');
@@ -47,13 +53,17 @@ function LocationScreen() {
       setCurrenttime(new Date().toLocaleString());
       settime(new Date().getTime());
 
-      console.log('asd', previousDATA);
       Geolocation.getCurrentPosition(data => setPlon(data.coords.longitude));
       Geolocation.getCurrentPosition(data => setPlat(data.coords.latitude));
-      setpreviousDATA(e => [
-        ...e,
-        {latitude: plat, longitude: plon, time: time},
-      ]);
+      if (plat == '') {
+        console.log('nahi hai');
+      } else {
+        setpreviousDATA(e => [
+          ...e,
+          {latitude: plat, longitude: plon, time: time},
+        ]);
+        console.log('asd', previousDATA);
+      }
     }
   };
 
